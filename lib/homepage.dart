@@ -12,28 +12,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.grey[350],
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        child: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.account_box_outlined),
+              ),
+              label: "accounts",
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.account_box_outlined),
+              ),
+              label: "hello",
+            ),
+          ],
+          backgroundColor: Colors.grey[400],
+        ),
+      ),
       body: Column(
         children: [
-          TopCard(),
+          TopCard(
+            balance: '\$200',
+            income: '\$500',
+            expense: '\$300',
+          ),
           Expanded(
             flex: 2,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30)
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
               ),
               child: Container(
                 alignment: Alignment.center,
                 child: const Text("Hello"),
-                decoration: BoxDecoration(
-                  color:Colors.blueGrey,
-                ),
+                decoration: BoxDecoration(color: Colors.grey[350]),
               ),
             ),
           ),
-
-        ]
+        ],
       ),
     );
   }
