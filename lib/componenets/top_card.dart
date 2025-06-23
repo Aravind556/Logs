@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TopCard extends StatelessWidget {
@@ -11,12 +12,10 @@ class TopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 20),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
         child: Container(
           height: 220,
-          width: 500,
-          color: Colors.grey[400],
+          width: double.infinity,
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -52,7 +51,7 @@ class TopCard extends StatelessWidget {
                           child: Column(
                             children: [
                               Text("Income", style: TextStyle(fontSize: 18,fontStyle: FontStyle.normal)),
-                              Text(income,style:TextStyle(fontWeight: FontWeight.bold)),
+                              Text(income,style:TextStyle(fontWeight: FontWeight.bold,color: Color.fromRGBO(33, 130, 9,1)),),
                             ],
                           ),
                         ),
@@ -76,7 +75,7 @@ class TopCard extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text("Expense", style: TextStyle(fontSize: 18,fontStyle: FontStyle.normal)),
-                                Text(expense,style:TextStyle(fontWeight: FontWeight.bold)),
+                                Text(expense,style:TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
                               ],
                             ),
                           ),
@@ -88,8 +87,26 @@ class TopCard extends StatelessWidget {
               ),
             ],
           ),
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.blueAccent.withOpacity(0.15), // Subtle blue shadow
+                blurRadius: 30,
+                spreadRadius: 2,
+
+                offset: Offset(-4, 4),
+              ),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08), // Soft black shadow for depth
+                blurRadius: 10,
+                spreadRadius: 1,
+                offset: Offset(12, 12),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }
