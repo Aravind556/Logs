@@ -9,9 +9,9 @@ class CustomerPage extends StatefulWidget {
 }
 
 class _CustomerPageState extends State<CustomerPage> {
-  final List<Map<String, String>> customers = [];
+  final List<Map<String, dynamic>> customers = [];
 
-  void _addCustomer(String name, String amount) {
+  void _addCustomer(String name, int amount) {
     setState(() {
       customers.add({'name': name, 'amount': amount});
     });
@@ -59,8 +59,11 @@ class _CustomerPageState extends State<CustomerPage> {
             ),
             onPressed: () {
               if (nameController.text.isNotEmpty && amountController.text.isNotEmpty) {
-                _addCustomer(nameController.text, amountController.text);
-                Navigator.pop(context);
+                final int? amount = int.tryParse(amountController.text);
+                if (amount != null) {
+                  _addCustomer(nameController.text, amount);
+                  Navigator.pop(context);
+                }
               }
             },
             child: const Text('Add'),
@@ -95,33 +98,16 @@ class _CustomerPageState extends State<CustomerPage> {
                 itemCount: customers.length,
                 itemBuilder: (context, index) {
                   final customer = customers[index];
-                  return Card(
-                    color: Colors.grey[200],
-                    elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.grey[400],
-                        child: const Icon(Icons.person, color: Colors.black),
-                      ),
-                      title: Text(
-                        customer['name'] ?? '',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
-                      subtitle: Text(
-                        'Amount: ₹${customer['amount'] ?? ''}',
-                        style: const TextStyle(color: Colors.black87),
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.redAccent),
-                        onPressed: () {
-                          setState(() {
-                            customers.removeAt(index);
-                          });
-                        },
-                      ),
-                    ),
+                  return UserCard(
+                    amount: customer['amount'] is int
+                        ? customer['amount']
+                        : int.tryParse(customer['amount'].toString()) ?? 0,
+                    name: customer['name'] ?? '',
+                    onDelete: () {
+                      setState(() {
+                        customers.removeAt(index);
+                      });
+                    },
                   );
                 },
               ),
