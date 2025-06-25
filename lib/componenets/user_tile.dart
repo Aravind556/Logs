@@ -4,7 +4,8 @@ class UserCard extends StatelessWidget {
   final String name;
   final int amount;
   final VoidCallback onDelete;
-  const UserCard({required this.amount,required this.name,required this.onDelete});
+  final VoidCallback onEdit;
+  const UserCard({required this.amount,required this.name,required this.onEdit,required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +27,22 @@ class UserCard extends StatelessWidget {
           '\$ ${amount}',
           style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete, color: Colors.redAccent),
-          onPressed: onDelete,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min
+          ,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.delete, color: Colors.redAccent),
+              onPressed: onDelete,
+              ),
+            IconButton(
+              icon: const Icon(Icons.edit, color: Colors.redAccent),
+              onPressed: onEdit,
             ),
+
+          ],
+        ),
+
         ),
       );
   }
